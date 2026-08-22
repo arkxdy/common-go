@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -173,7 +174,8 @@ func LoadKeys(privateKeyPath, publicKeyPath string) (*rsa.PrivateKey, *rsa.Publi
 }
 
 func loadPrivateKey(path string) (*rsa.PrivateKey, error) {
-	data, err := os.ReadFile(path)
+	cleanPath := filepath.Clean(path)
+	data, err := os.ReadFile(cleanPath)
 	if err != nil {
 		return nil, err
 	}
@@ -193,7 +195,8 @@ func loadPrivateKey(path string) (*rsa.PrivateKey, error) {
 }
 
 func loadPublicKey(path string) (*rsa.PublicKey, error) {
-	data, err := os.ReadFile(path)
+	cleanPath := filepath.Clean(path)
+	data, err := os.ReadFile(cleanPath)
 	if err != nil {
 		return nil, err
 	}

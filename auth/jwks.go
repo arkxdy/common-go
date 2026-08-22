@@ -46,6 +46,6 @@ func JWKSHandler(publicKey *rsa.PublicKey, kid string) http.Handler {
 	jwks := NewJWKS(publicKey, kid)
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(jwks)
+		_ = json.NewEncoder(w).Encode(jwks)
 	})
 }
